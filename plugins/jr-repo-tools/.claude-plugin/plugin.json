@@ -1,0 +1,5 @@
+{
+  "name": "jr-repo-tools",
+  "description": "Adds a /review command for quick code reviews",
+  "version": "0.1.0"
+}

@@ -8,6 +8,11 @@
       "name": "jr-repo-tools",
       "source": "./plugins/jr-repo-tools",
       "description": "Adds a JRs repo tools like /go-live-check command for quick code reviews"
+    },
+    {
+      "name": "runway",
+      "source": "./plugins/runway",
+      "description": "Comprehensive Runway infrastructure deployment management with agents, commands, and hooks"
     }
   ]
 }

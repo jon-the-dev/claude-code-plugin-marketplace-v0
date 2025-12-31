@@ -1,0 +1,45 @@
+# Example CFNgin configuration with SAM deploy and delete hooks
+namespace: myapp-${environment}
+
+variables:
+  environment: dev
+
+pre_hooks:
+  # Deploy SAM template before other stacks
+  - path: hooks.sam_deploy.cfngin_hook
+    required: true
+    args:
+      template_file: ../lambda-functions/template.yaml
+      stack_name: myapp-lambda-${environment}
+      config_file: ../lambda-functions/samconfig.toml
+      env: ${environment}
+      parameters:
+        Environment: ${environment}
+        FunctionTimeout: 900
+        FunctionMemory: 1024
+      capabilities:
+        - CAPABILITY_IAM
+        - CAPABILITY_NAMED_IAM
+      wait: true
+      timeout: 1800
+      working_directory: lambda-functions
+
+stacks:
+  # Additional infrastructure stacks can go here
+  - name: infrastructure
+    template_path: templates/infrastructure.yaml
+    variables:
+      Environment: ${environment}
+
+post_hooks:
+  # Optional: Delete SAM stack during teardown
+  - path: hooks.sam_deploy.cfngin_delete_hook
+    required: false  # Don't fail if stack doesn't exist
+    args:
+      stack_name: myapp-lambda-${environment}
+      wait: true
+      timeout: 1800
+      # Optionally retain certain resources
+      retain_resources:
+        - ArtifactsBucket  # Keep S3 bucket with artifacts
+        - DataTable        # Keep DynamoDB table with data

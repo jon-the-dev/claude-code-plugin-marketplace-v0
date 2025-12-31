@@ -1,0 +1,5 @@
+{
+  "name": "runway",
+  "description": "Comprehensive Runway infrastructure deployment management with agents, commands, and hooks",
+  "version": "0.1.0"
+}

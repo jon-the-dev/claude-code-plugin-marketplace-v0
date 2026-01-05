@@ -23,7 +23,9 @@ This skill provides everything you need to work with Runway (AWS CloudFormation/
 This skill automatically loads two powerful MCP servers that give agents deep infrastructure knowledge:
 
 ### AWS CloudFormation MCP Server
+
 **Provides**:
+
 - CloudFormation template validation and linting
 - Resource property lookup and documentation
 - Template introspection and analysis
@@ -31,13 +33,16 @@ This skill automatically loads two powerful MCP servers that give agents deep in
 - CFN-Lint integration
 
 **Use cases**:
+
 - Validate CloudFormation templates before deployment
 - Get documentation for resource types
 - Understand template structure and dependencies
 - Debug template errors
 
 ### Terraform MCP Server
+
 **Provides**:
+
 - Terraform configuration validation
 - Resource documentation and schemas
 - Module analysis
@@ -45,6 +50,7 @@ This skill automatically loads two powerful MCP servers that give agents deep in
 - Provider information
 
 **Use cases**:
+
 - Validate Terraform configurations
 - Understand resource schemas
 - Analyze module dependencies
@@ -83,15 +89,18 @@ Agent (using terraform-mcp-server):
 Agents are autonomous AI workers that handle complex, multi-step tasks. They have specialized knowledge and can use multiple tools.
 
 ### runway-deploy
+
 **Purpose**: Execute deployments with environment management and validation
 
 **When to use**:
+
 - Deploying infrastructure to AWS
 - Environment-specific deployments (dev, staging, prod)
 - Tag-based selective deployments
 - Running deployment dry-runs
 
 **Capabilities**:
+
 - ✅ Environment validation and configuration
 - ✅ Tag-based deployment filtering
 - ✅ Custom hook execution
@@ -100,6 +109,7 @@ Agents are autonomous AI workers that handle complex, multi-step tasks. They hav
 - ✅ Error handling and rollback guidance
 
 **Example invocations**:
+
 ```
 "Deploy to production using runway"
 "Run runway deployment for staging environment"
@@ -107,15 +117,18 @@ Agents are autonomous AI workers that handle complex, multi-step tasks. They hav
 ```
 
 ### runway-local-dev
+
 **Purpose**: Manage local development environments with Docker Compose
 
 **When to use**:
+
 - Setting up local development environment
 - Testing runway configurations locally
 - Developing custom hooks
 - Running services locally (databases, LocalStack, etc.)
 
 **Capabilities**:
+
 - ✅ Docker Compose environment setup
 - ✅ LocalStack AWS service emulation
 - ✅ Service orchestration and health monitoring
@@ -123,6 +136,7 @@ Agents are autonomous AI workers that handle complex, multi-step tasks. They hav
 - ✅ Local testing and validation
 
 **Example invocations**:
+
 ```
 "Set up runway local environment"
 "Start local development with docker"
@@ -130,15 +144,18 @@ Agents are autonomous AI workers that handle complex, multi-step tasks. They hav
 ```
 
 ### runway-validate-hooks
+
 **Purpose**: Validate custom hooks before deployment
 
 **When to use**:
+
 - Before deploying with new hooks
 - After modifying existing hooks
 - Debugging hook failures
 - Ensuring hook best practices
 
 **Capabilities**:
+
 - ✅ Hook syntax validation
 - ✅ Dependency checking
 - ✅ Functional testing
@@ -146,6 +163,7 @@ Agents are autonomous AI workers that handle complex, multi-step tasks. They hav
 - ✅ Automated validation scripts
 
 **Example invocations**:
+
 ```
 "Validate my runway hooks"
 "Check if my hook is correct"
@@ -153,15 +171,18 @@ Agents are autonomous AI workers that handle complex, multi-step tasks. They hav
 ```
 
 ### runway-create-hook
+
 **Purpose**: Create new custom hooks following best practices
 
 **When to use**:
+
 - Creating new deployment automation
 - Extending runway functionality
 - Integrating external services
 - Automating deployment workflows
 
 **Capabilities**:
+
 - ✅ Interactive hook scaffolding
 - ✅ Template generation with best practices
 - ✅ Test file creation
@@ -169,10 +190,44 @@ Agents are autonomous AI workers that handle complex, multi-step tasks. They hav
 - ✅ Validation script creation
 
 **Example invocations**:
+
 ```
 "Create a new runway hook"
 "I need a hook that invalidates cache"
 "Build a custom deployment hook"
+```
+
+### runway-setup
+
+**Purpose**: Comprehensive project initialization with intelligent module discovery
+
+**When to use**:
+
+- Setting up runway for the first time in a project
+- Initializing runway.yml configuration
+- Configuring multiple environments (dev, staging, prod)
+- Setting up environment variable files (tfvars, .env)
+- Configuring deployment hooks for npm builds and env generation
+- Migrating existing infrastructure to runway
+
+**Capabilities**:
+
+- ✅ Intelligent module and stack discovery
+- ✅ Interactive environment configuration
+- ✅ runway.yml generation with proper structure
+- ✅ Environment variable file creation (*.tfvars, *.env)
+- ✅ NPM build hook configuration
+- ✅ .env file generation hook setup
+- ✅ Validation and testing
+- ✅ Migration guidance for existing infrastructure
+
+**Example invocations**:
+
+```
+"Set up runway for this project"
+"Initialize runway with dev and prod environments"
+"Set up runway with npm build hooks"
+"Help me migrate my Terraform to runway"
 ```
 
 ## 📝 Commands
@@ -180,14 +235,17 @@ Agents are autonomous AI workers that handle complex, multi-step tasks. They hav
 Commands are simple slash commands for quick operations. They execute bash scripts with arguments.
 
 ### /runway deploy [environment] [--tags TAG] [--dry-run]
+
 Quick deployment execution with environment and tag filtering
 
 **Arguments**:
+
 - `environment` - Target environment (dev, staging, prod)
 - `--tags` - Tag filter for selective deployment
 - `--dry-run` - Preview changes without deploying
 
 **Examples**:
+
 ```bash
 /runway deploy                          # Deploy everything
 /runway deploy dev                      # Deploy to dev
@@ -196,34 +254,66 @@ Quick deployment execution with environment and tag filtering
 ```
 
 ### /runway validate [target]
+
 Validate runway configuration and hooks
 
 **Arguments**:
+
 - `target` - What to validate: `config`, `hooks`, or `all` (default)
 
 **Examples**:
+
 ```bash
 /runway validate           # Validate everything
 /runway validate config    # Config only
 /runway validate hooks     # Hooks only
 ```
 
+### /runway setup [environment]
+
+Initialize runway configuration for the project
+
+**Arguments**:
+
+- `environment` (optional) - Target environment to configure (dev, staging, prod)
+  - If not provided, prompts interactively for environments
+
+**Examples**:
+
+```bash
+/runway setup              # Interactive setup
+/runway setup dev          # Setup for dev environment
+/runway setup prod         # Setup for prod environment
+```
+
+**What it does**:
+
+1. Scans project for Terraform modules and CloudFormation stacks
+2. Creates runway.yml base configuration
+3. Generates environment-specific variable files (*.tfvars, *.env)
+4. Sets up npm build and env generation hooks if applicable
+
+**For comprehensive setup**: Use the `runway-setup` agent for more advanced initialization with interactive guidance and custom hook configuration.
+
 ## 🪝 Event Hooks
 
 Event hooks automatically trigger on Claude Code events to provide safety and validation.
 
 ### PreToolUse Hook
+
 **Event**: PreToolUse (before bash commands execute)
 
 **Purpose**: Automatically validate runway configurations before deployment commands
 
 **When it triggers**:
+
 - Before any `runway deploy` command
 - Before any `runway plan` command
 - Before any `runway destroy` command
 - Before any `runway init` command
 
 **What it validates**:
+
 - ✅ Configuration file exists
 - ✅ Valid YAML syntax
 - ✅ Deployments are defined
@@ -231,11 +321,13 @@ Event hooks automatically trigger on Claude Code events to provide safety and va
 - ⚠️ Warns about production deployments
 
 **Behavior**:
+
 - **Blocks** command if validation fails
 - **Warns** about production deployments
 - **Allows** command if validation passes
 
 **Example output**:
+
 ```
 🔍 Validating runway configuration before execution...
 ✅ Found configuration: runway.yml
@@ -258,6 +350,7 @@ Ready-to-use hooks in `examples/hooks/` for common deployment tasks:
 | `sam_deploy` | Deploy AWS SAM templates | Serverless applications | deployment |
 
 Each hook includes:
+
 - ✅ Full implementation
 - ✅ Unit tests (`test_*.py`)
 - ✅ Validation scripts (`validate_*.py`)
@@ -265,7 +358,24 @@ Each hook includes:
 
 ## 🚀 Quick Start
 
-### 1. Basic Deployment
+### 1. Initial Setup
+
+```bash
+# Quick setup
+/runway setup
+
+# Or use the agent for comprehensive setup
+"Set up runway for this project with dev and prod environments"
+
+# This will:
+# - Discover Terraform/CloudFormation modules
+# - Create runway.yml
+# - Generate environment variable files
+# - Configure hooks if needed
+```
+
+### 2. Basic Deployment
+
 ```bash
 # Validate configuration
 /runway validate
@@ -277,7 +387,8 @@ Each hook includes:
 "Deploy the application to staging with tag filtering"
 ```
 
-### 2. Local Development
+### 3. Local Development
+
 ```bash
 # Set up local environment
 "Set up runway local development environment"
@@ -289,7 +400,8 @@ Each hook includes:
 # - Set up environment variables
 ```
 
-### 3. Create Custom Hook
+### 4. Create Custom Hook
+
 ```bash
 # Create a new hook
 "Create a runway hook that sends Slack notifications after deployment"
@@ -301,7 +413,8 @@ Each hook includes:
 # - Provide usage examples
 ```
 
-### 4. Validate Before Deploy
+### 5. Validate Before Deploy
+
 ```bash
 # Validate hooks
 "Validate my custom runway hooks"
@@ -319,11 +432,13 @@ runway/
 ├── SKILL.md                          # This file
 ├── .mcp.json                         # MCP server configuration
 ├── agents/                           # Autonomous AI workers
+│   ├── runway-setup.md               # Project initialization
 │   ├── runway-deploy.md              # Deployment orchestration
 │   ├── runway-local-dev.md           # Local environment management
 │   ├── runway-validate-hooks.md      # Hook validation
 │   └── runway-create-hook.md         # Hook creation
 ├── commands/                         # Slash commands
+│   ├── setup.md                      # /runway setup
 │   ├── deploy.md                     # /runway deploy
 │   └── validate.md                   # /runway validate
 ├── hooks/                            # Event hooks
@@ -341,7 +456,25 @@ runway/
 
 ## 📖 Detailed Usage Examples
 
-### Example 1: Full Production Deployment
+### Example 1: Initial Project Setup
+
+```
+You: "Set up runway for this project with dev and prod environments"
+
+Claude (using runway-setup agent):
+1. 📁 Scans project structure
+2. ✅ Found: 3 Terraform modules, 1 CloudFormation stack, 1 React app
+3. ❓ Asks: "Configure npm build hooks for the React app?"
+4. 📝 Creates runway.yml with proper module ordering
+5. 📄 Creates dev.tfvars and prod.tfvars for each module
+6. 🔧 Configures npm build and S3 sync hooks
+7. 🔧 Sets up .env generation hook
+8. ✅ Validates configuration
+9. 📋 Provides next steps and example commands
+```
+
+### Example 2: Full Production Deployment
+
 ```
 You: "Deploy the application to production using runway"
 
@@ -356,7 +489,8 @@ Claude (using runway-deploy agent):
 8. 📋 Provides deployment summary
 ```
 
-### Example 2: Local Development Setup
+### Example 3: Local Development Setup
+
 ```
 You: "I want to test runway configurations locally"
 
@@ -369,7 +503,8 @@ Claude (using runway-local-dev agent):
 6. 💡 Shows usage examples
 ```
 
-### Example 3: Hook Creation
+### Example 4: Hook Creation
+
 ```
 You: "Create a hook that invalidates CloudFront cache after deployment"
 
@@ -382,7 +517,8 @@ Claude (using runway-create-hook agent):
 6. 💡 Shows usage in runway.yml
 ```
 
-### Example 4: Validation Workflow
+### Example 5: Validation Workflow
+
 ```
 You: /runway validate
 
@@ -403,6 +539,7 @@ Claude:
 ```
 
 ### Example 5: MCP-Enhanced Template Validation
+
 ```
 You: "Validate my CloudFormation template before deploying with runway"
 
@@ -419,6 +556,7 @@ Claude (using runway-deploy agent + cfn-mcp-server):
 ```
 
 ### Example 6: Terraform Configuration Analysis
+
 ```
 You: "Check my Terraform config before runway deploy"
 
@@ -439,6 +577,7 @@ Claude (using runway-deploy agent + terraform-mcp-server):
 
 1. **Always validate before deploying**
    - Use `/runway validate` or let PreToolUse hook auto-validate
+   - Leverage MCP servers for deep template validation
    - Fix any warnings before production deployments
 
 2. **Test locally first**
@@ -449,14 +588,21 @@ Claude (using runway-deploy agent + terraform-mcp-server):
 3. **Use agents for complex tasks**
    - Let agents handle multi-step workflows
    - Agents provide better error handling and guidance
+   - Agents automatically use MCP servers for enhanced validation
    - Agents follow best practices automatically
 
-4. **Create reusable hooks**
+4. **Leverage MCP server capabilities**
+   - Ask agents to validate CloudFormation/Terraform before deployment
+   - Use cfn-lint suggestions to improve template quality
+   - Validate resource schemas and dependencies
+   - Get real-time documentation for resource types
+
+5. **Create reusable hooks**
    - Use runway-create-hook agent for scaffolding
    - Follow established patterns from examples
    - Include tests and validation
 
-5. **Environment isolation**
+6. **Environment isolation**
    - Use separate AWS accounts when possible
    - Tag resources appropriately
    - Use environment-specific configurations
@@ -464,6 +610,7 @@ Claude (using runway-deploy agent + terraform-mcp-server):
 ## 🔧 Troubleshooting
 
 ### Issue: Configuration validation fails
+
 ```bash
 # Check configuration
 /runway validate config
@@ -473,6 +620,7 @@ Claude (using runway-deploy agent + terraform-mcp-server):
 ```
 
 ### Issue: Hook not working
+
 ```bash
 # Validate hooks
 /runway validate hooks
@@ -482,6 +630,7 @@ Claude (using runway-deploy agent + terraform-mcp-server):
 ```
 
 ### Issue: Local development not starting
+
 ```bash
 # Use agent for help
 "Help me troubleshoot my runway local development environment"
@@ -495,10 +644,22 @@ Claude (using runway-deploy agent + terraform-mcp-server):
 
 ## 📚 Additional Resources
 
+### Skill Documentation
+
 - **Agent Documentation**: See individual agent files in `agents/`
 - **Hook Examples**: See `examples/hooks/` for reference implementations
-- **Runway Docs**: https://docs.onica.com/projects/runway/
-- **CFNgin Hooks**: https://docs.onica.com/projects/runway/en/latest/cfngin/hooks.html
+- **MCP Configuration**: See `.mcp.json` for server settings
+
+### Runway Documentation
+
+- **Runway Docs**: <https://docs.onica.com/projects/runway/>
+- **CFNgin Hooks**: <https://docs.onica.com/projects/runway/en/latest/cfngin/hooks.html>
+
+### MCP Server Documentation
+
+- **AWS CloudFormation MCP**: AWS Labs CloudFormation MCP server with cfn-lint integration
+- **Terraform MCP**: AWS Labs Terraform MCP server for configuration validation
+- **MCP Protocol**: Model Context Protocol for tool integration
 
 ## 🆘 Getting Help
 
@@ -510,6 +671,9 @@ Ask Claude for help with any runway task:
 "Help me set up local development"
 "Validate my runway configuration"
 "What hooks are available?"
+"Validate my CloudFormation template before deploying"
+"Check my Terraform config for issues"
+"Explain this CloudFormation resource type"
 ```
 
-The skill's agents and commands will automatically activate based on your request!
+The skill's agents and commands will automatically activate based on your request, and MCP servers will provide deep infrastructure knowledge when needed!

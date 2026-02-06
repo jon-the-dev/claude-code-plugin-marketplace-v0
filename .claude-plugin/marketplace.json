@@ -13,6 +13,11 @@
       "name": "runway",
       "source": "./plugins/runway",
       "description": "Comprehensive Runway infrastructure deployment management with agents, commands, and hooks"
+    },
+    {
+      "name": "gemini",
+      "source": "./plugins/gemini",
+      "description": "Cross-model AI assistant via Google Gemini CLI for plan verification, QA review, context offloading, and cross-validation"
     }
   ]
 }

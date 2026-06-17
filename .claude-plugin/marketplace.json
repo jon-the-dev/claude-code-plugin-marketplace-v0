@@ -1,8 +1,12 @@
 {
   "name": "jrs-plugins",
   "owner": {
-    "name": "Jon (JR) Price"
+    "name": "Jon (JR) Price",
+    "email": "jon@jonprice.io",
+    "url": "https://github.com/jon-the-dev"
   },
+   "homepage": "https://github.com/jon-the-dev/claude-code-plugin-marketplace-v0",
+  "repository": "https://github.com/jon-the-dev/claude-code-plugin-marketplace-v0",
   "plugins": [
     {
       "name": "jr-repo-tools",
@@ -18,6 +22,11 @@
       "name": "gemini",
       "source": "./plugins/gemini",
       "description": "Cross-model AI assistant via Google Gemini CLI for plan verification, QA review, context offloading, and cross-validation"
+    },
+    {
+      "name": "audit-code",
+      "source": "./plugins/audit-code",
+      "description": "Read-only codebase audit suite: a master orchestrator plus seven focused dimension skills (security, correctness, performance, quality, architecture, dependencies, testing) that render a styled HTML report"
     }
   ]
 }

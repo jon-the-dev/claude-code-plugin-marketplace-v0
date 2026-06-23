@@ -1,0 +1,5 @@
+{
+  "name": "ai-developer",
+  "description": "AI-assisted development workflow suite. Plans and runs sprints (mini-sprint), picks up and ships the next GitHub issue in an isolated worktree with auto-merge on green CI (next-issue), and generates GitHub issue reports with historical burndown tracking (issue-report). Optional: the mini-sprint/next-issue code-review step uses /codex:review from OpenAI's codex plugin (/plugin install codex@openai-codex); the step is skipped if it isn't installed.",
+  "version": "0.1.0"
+}

@@ -27,6 +27,11 @@
       "name": "audit-code",
       "source": "./plugins/audit-code",
       "description": "Read-only codebase audit suite: a master orchestrator plus seven focused dimension skills (security, correctness, performance, quality, architecture, dependencies, testing) that render a styled HTML report"
+    },
+    {
+      "name": "ai-developer",
+      "source": "./plugins/ai-developer",
+      "description": "AI-assisted development workflow suite: plan and run sprints (mini-sprint), ship the next GitHub issue in an isolated worktree with auto-merge (next-issue), and generate issue reports with burndown tracking (issue-report)"
     }
   ]
 }

@@ -78,7 +78,8 @@ HTML) uses this shape — note the extra `id` and `dimension` fields:
 
 Assign stable IDs per dimension: `SEC-###` (security), `COR-###` (correctness),
 `PERF-###` (performance), `QLT-###` (quality), `ARC-###` (architecture),
-`DEP-###` (dependencies), `TST-###` (testing). Sort critical → info.
+`DEP-###` (dependencies), `TST-###` (testing), `SOC-###` (social-preview).
+Sort critical → info.
 
 ## Reporting flow
 

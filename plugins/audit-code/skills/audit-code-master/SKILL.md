@@ -3,7 +3,7 @@ name: audit-code-master
 description: >
   Read-only multi-agent codebase audit orchestrator. Fans out parallel
   sub-agents across the audit-code dimension skills (security, correctness,
-  performance, quality, architecture, dependencies, testing), aggregates and
+  performance, quality, architecture, dependencies, testing, social-preview), aggregates and
   ranks findings by severity, writes a styled HTML report to
   ~/.reports/audit-<project>.html (auto-opened), prints a Markdown summary, then
   offers to file issues or export a CSV. Use when the user wants a full audit,
@@ -62,6 +62,7 @@ pipeline).
 | architecture | `audit-code-architecture` | `ARC` |
 | dependencies | `audit-code-dependencies` | `DEP` |
 | testing | `audit-code-testing` | `TST` |
+| social-preview | `audit-code-social-preview` | `SOC` |
 
 If the user already named specific dimensions in their request (e.g. "audit
 security and performance"), honor that and skip the question.

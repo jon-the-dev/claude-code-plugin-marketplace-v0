@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "terraform": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e", "TFE_TOKEN",
+        "-e", "TFE_ADDRESS",
+        "-e", "ENABLE_TF_OPERATIONS",
+        "hashicorp/terraform-mcp-server:latest"
+      ]
+    }
+  }
+}

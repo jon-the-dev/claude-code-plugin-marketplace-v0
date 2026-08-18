@@ -5,8 +5,9 @@
     "email": "jon@jonprice.io",
     "url": "https://github.com/jon-the-dev"
   },
-   "homepage": "https://github.com/jon-the-dev/claude-code-plugin-marketplace-v0",
-  "repository": "https://github.com/jon-the-dev/claude-code-plugin-marketplace-v0",
+  "metadata": {
+    "description": "JR's custom Claude Code plugins: repo tools, Runway infrastructure deployment, cross-model assistants, codebase audits, AI dev workflows, and specialist agents"
+  },
   "plugins": [
     {
       "name": "jr-repo-tools",
@@ -32,6 +33,16 @@
       "name": "ai-developer",
       "source": "./plugins/ai-developer",
       "description": "AI-assisted development workflow suite: plan and run sprints (mini-sprint), ship the next GitHub issue in an isolated worktree with auto-merge (next-issue), and generate issue reports with burndown tracking (issue-report)"
+    },
+    {
+      "name": "lang-specialists",
+      "source": "./plugins/lang-specialists",
+      "description": "Senior language and framework specialist agents: fastapi-developer, node-specialist, react-specialist, rust-engineer, typescript-pro, and vue-expert"
+    },
+    {
+      "name": "devops-agents",
+      "source": "./plugins/devops-agents",
+      "description": "DevOps and platform agents: terraform-agent (HCP Terraform workflows via bundled Terraform MCP server), github-actions-expert (secure CI/CD workflows), owasp-compliance (OWASP ASI Top 10 agent security checks), and api-architect (layered API client code generation)"
     }
   ]
 }

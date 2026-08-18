@@ -1,5 +1,10 @@
 {
   "name": "runway",
   "description": "Comprehensive Runway infrastructure deployment management with agents, commands, and hooks",
-  "version": "0.2.0"
+  "version": "0.2.1",
+  "author": {
+    "name": "Jon (JR) Price",
+    "email": "jon@jonprice.io",
+    "url": "https://github.com/jon-the-dev"
+  }
 }

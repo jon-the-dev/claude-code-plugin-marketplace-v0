@@ -1,5 +1,10 @@
 {
   "name": "audit-code",
   "description": "Read-only codebase audit suite. A master orchestrator (audit-code-master) fans out parallel sub-agents across focused dimension skills (security, correctness, performance, quality, architecture, dependencies, testing, social-preview) and renders a styled HTML report; each dimension also runs standalone for a targeted audit. Never edits code.",
-  "version": "0.1.0"
+  "version": "0.1.1",
+  "author": {
+    "name": "Jon (JR) Price",
+    "email": "jon@jonprice.io",
+    "url": "https://github.com/jon-the-dev"
+  }
 }

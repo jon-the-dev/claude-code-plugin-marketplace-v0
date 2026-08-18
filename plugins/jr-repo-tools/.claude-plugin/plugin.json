@@ -1,5 +1,10 @@
 {
   "name": "jr-repo-tools",
   "description": "Adds a /review command for quick code reviews",
-  "version": "0.1.0"
+  "version": "0.1.1",
+  "author": {
+    "name": "Jon (JR) Price",
+    "email": "jon@jonprice.io",
+    "url": "https://github.com/jon-the-dev"
+  }
 }

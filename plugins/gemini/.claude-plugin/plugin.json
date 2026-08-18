@@ -1,5 +1,10 @@
 {
   "name": "gemini",
   "description": "Cross-model AI assistant via Google Gemini CLI for plan verification, QA review, context offloading, and cross-validation",
-  "version": "0.1.0"
+  "version": "0.1.1",
+  "author": {
+    "name": "Jon (JR) Price",
+    "email": "jon@jonprice.io",
+    "url": "https://github.com/jon-the-dev"
+  }
 }

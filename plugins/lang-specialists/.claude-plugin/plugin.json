@@ -1,0 +1,10 @@
+{
+  "name": "lang-specialists",
+  "description": "Senior language and framework specialist agents: fastapi-developer, node-specialist, react-specialist, rust-engineer, typescript-pro, and vue-expert",
+  "version": "0.1.0",
+  "author": {
+    "name": "Jon (JR) Price",
+    "email": "jon@jonprice.io",
+    "url": "https://github.com/jon-the-dev"
+  }
+}

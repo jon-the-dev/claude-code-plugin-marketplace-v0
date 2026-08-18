@@ -1,0 +1,10 @@
+{
+  "name": "devops-agents",
+  "description": "DevOps and platform agents: terraform-agent (HCP Terraform workflows via the bundled Terraform MCP server), github-actions-expert (secure CI/CD workflows), owasp-compliance (OWASP ASI Top 10 agent security checks), and api-architect (layered API client code generation)",
+  "version": "0.1.0",
+  "author": {
+    "name": "Jon (JR) Price",
+    "email": "jon@jonprice.io",
+    "url": "https://github.com/jon-the-dev"
+  }
+}

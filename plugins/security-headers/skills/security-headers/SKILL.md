@@ -84,6 +84,18 @@ sandboxes), say so plainly, lean on the local estimate, and give the user the
 scan link so they can confirm:
 `https://securityheaders.com/?q=<url>&followRedirects=on`.
 
+If the user pasted or attached a header dump (`curl -D -` output, a scan
+screenshot transcribed into text) or the target itself is unreachable, grade
+the file instead of fetching:
+
+```bash
+python3 "${CLAUDE_PLUGIN_ROOT}/skills/security-headers/scripts/scan_headers.py" --from-file headers.txt --url https://example.com --json --out before.json
+```
+
+The local letter is an estimate: it uses the same six headers and the same
+CSP cap as the scanner, but the exact thresholds are not published, so it can
+be one letter off. The *set* of missing and weak headers is what to act on.
+
 ### 3. Work out which layer serves the response
 
 Look at the scanned headers and the repo before guessing:
@@ -184,3 +196,10 @@ Grade: <securityheaders.com grade or "local estimate: X"> → target A+
 
 Keep the findings tied to evidence from the scan. Do not report a header as
 missing on a URL you did not scan.
+
+Size the report to the site. A one-page marketing site or a small business
+WordPress install needs the fix, the two or three things that could break,
+and the verify command; it does not need every directive explained. Save the
+long form (drift analysis, per-directive rationale, staged rollout tables)
+for sites where the user has signalled a change process or where CSP is
+genuinely risky.

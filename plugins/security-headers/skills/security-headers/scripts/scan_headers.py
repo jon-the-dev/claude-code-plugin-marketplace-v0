@@ -19,6 +19,8 @@ Usage:
   scan_headers.py https://example.com --json --out before.json
   scan_headers.py https://example.com --no-remote
   scan_headers.py --diff before.json after.json  # compare two JSON scans
+  scan_headers.py --from-file headers.txt --url https://example.com
+                                                 # grade a saved `curl -D -` dump (no network)
 """
 
 import argparse
@@ -99,6 +101,47 @@ def fetch_chain(url: str, timeout: float, insecure: bool, max_hops: int = 10):
         hop["body"] = body.decode("utf-8", "replace")
         return chain, hop
     raise RuntimeError("too many redirects")
+
+
+def parse_header_dump(text: str):
+    """Parse a saved `curl -sS -D - ...` dump (or raw header block).
+
+    Returns (chain, final) in the same shape fetch_chain() returns. Several
+    HTTP blocks (redirects) are kept in order; the last one is the final hop.
+    Lines before the first HTTP/ status line (shell prompts, commands) are
+    ignored, as is anything after the first blank line following a block.
+    """
+    blocks = []
+    cur = None
+    for raw in text.splitlines():
+        line = raw.rstrip("\r")
+        m = re.match(r"^HTTP/\d(?:\.\d)?\s+(\d{3})", line)
+        if m:
+            cur = {"status": int(m.group(1)), "headers": []}
+            blocks.append(cur)
+            continue
+        if cur is None:
+            continue
+        if not line.strip():
+            cur = None  # end of this block; a later HTTP/ line starts the next
+            continue
+        if ":" in line and not line.startswith(" "):
+            k, v = line.split(":", 1)
+            if re.match(r"^[A-Za-z0-9-]+$", k.strip()):
+                cur["headers"].append([k.strip(), v.strip()])
+    if not blocks:
+        # no status lines at all: treat every "Name: value" line as a header
+        hdrs = []
+        for raw in text.splitlines():
+            line = raw.strip()
+            if ":" in line:
+                k, v = line.split(":", 1)
+                if re.match(r"^[A-Za-z0-9-]+$", k.strip()):
+                    hdrs.append([k.strip(), v.strip()])
+        if not hdrs:
+            raise ValueError("no HTTP status line or header lines found in the file")
+        blocks = [{"status": 200, "headers": hdrs}]
+    return blocks, blocks[-1]
 
 
 def header_map(items):
@@ -384,28 +427,42 @@ def diff(before: dict, after: dict) -> str:
 
 def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("url", nargs="?", help="URL or hostname to scan (https:// assumed if no scheme)")
+    p.add_argument("url_from_pos", nargs="?", metavar="url", help="URL or hostname to scan (https:// assumed if no scheme)")
     p.add_argument("--json", action="store_true", help="emit JSON instead of markdown")
     p.add_argument("--out", help="also write the JSON result to this file")
     p.add_argument("--no-remote", action="store_true", help="skip securityheaders.com; local analysis only")
     p.add_argument("--timeout", type=float, default=20.0)
     p.add_argument("--insecure", action="store_true", help="do not verify TLS on the target (staging certs)")
     p.add_argument("--diff", nargs=2, metavar=("BEFORE_JSON", "AFTER_JSON"), help="compare two saved JSON scans and exit")
+    p.add_argument("--from-file", metavar="HEADERS_TXT", help="grade a saved `curl -D -` header dump instead of fetching; implies --no-remote")
+    p.add_argument("--url", help="with --from-file: the URL the dump came from (decides whether HSTS counts; defaults to https://<unknown>)")
     args = p.parse_args(argv)
 
     if args.diff:
         with open(args.diff[0]) as f1, open(args.diff[1]) as f2:
             print(diff(json.load(f1), json.load(f2)))
         return 0
-    if not args.url:
-        p.error("url is required unless --diff is used")
-
-    url = args.url if re.match(r"^https?://", args.url, re.I) else "https://" + args.url
-    try:
-        chain, final = fetch_chain(url, args.timeout, args.insecure)
-    except Exception as e:
-        sys.stderr.write(f"fetch failed for {url}: {type(e).__name__}: {e}\n")
-        return 2
+    if args.from_file:
+        label = args.url or args.url_from_pos or "https://unknown.invalid/"
+        url = label if re.match(r"^https?://", label, re.I) else "https://" + label
+        try:
+            with open(args.from_file, errors="replace") as fh:
+                chain, final = parse_header_dump(fh.read())
+        except Exception as e:
+            sys.stderr.write(f"could not parse {args.from_file}: {type(e).__name__}: {e}\n")
+            return 2
+        for i, hop in enumerate(chain):
+            hop["url"] = url if i == len(chain) - 1 else f"{url} (hop {i + 1})"
+        args.no_remote = True
+    else:
+        if not args.url_from_pos:
+            p.error("url is required unless --diff or --from-file is used")
+        url = args.url_from_pos if re.match(r"^https?://", args.url_from_pos, re.I) else "https://" + args.url_from_pos
+        try:
+            chain, final = fetch_chain(url, args.timeout, args.insecure)
+        except Exception as e:
+            sys.stderr.write(f"fetch failed for {url}: {type(e).__name__}: {e}\n")
+            return 2
 
     hmap = header_map(final["headers"])
     result = {
@@ -415,6 +472,7 @@ def main(argv=None):
         "chain": [{k: v for k, v in h.items() if k != "body"} for h in chain],
         "analysis": analyse(final["url"], hmap),
         "remote": None if args.no_remote else remote_grade(url, args.timeout),
+        "source": "file:" + args.from_file if args.from_file else "live",
     }
 
     if args.out:

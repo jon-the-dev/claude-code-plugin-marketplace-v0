@@ -1,0 +1,14 @@
+schema_version: "1.1"
+name: cloudfront-terraform-fix
+expected_outcome: |
+  Identifies the four missing graded headers (CSP, X-Content-Type-Options,
+  Referrer-Policy, Permissions-Policy) and the existing HSTS lacking
+  includeSubDomains. Adds an aws_cloudfront_response_headers_policy resource
+  with all six headers and attaches it via response_headers_policy_id to
+  BOTH the default_cache_behavior and the /blog/* ordered_cache_behavior.
+  The CSP allows Google Analytics/Tag Manager and Google Fonts origins and
+  does not use 'unsafe-inline' in script-src without noting the grade cap.
+  Warns that CSP can break the site and recommends Report-Only first, and
+  notes includeSubDomains risk for other subdomains. report.md written.
+context:
+  scaffold_script: place-files.sh

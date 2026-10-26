@@ -1,0 +1,10 @@
+{
+  "name": "security-headers",
+  "description": "Scan a website with securityheaders.com (plus a local fallback grader), explain every missing or weak HTTP security header, and produce platform-specific fixes for AWS (CloudFront, ALB, API Gateway, Amplify, S3, Elastic Beanstalk) and Cloudflare (Transform Rules, Managed Transforms, HSTS, Workers). Then re-scan to verify the grade improved.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Jon (JR) Price",
+    "email": "jon@jonprice.io",
+    "url": "https://github.com/jon-the-dev"
+  }
+}

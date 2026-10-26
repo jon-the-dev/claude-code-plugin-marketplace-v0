@@ -1,0 +1,16 @@
+schema_version: "1.1"
+name: cloudflare-wordpress-grade
+expected_outcome: |
+  Recognises Cloudflare is the serving layer (server: cloudflare, cf-ray)
+  and that all six graded headers are missing plus an x-powered-by leak.
+  Proposes a Cloudflare-only fix: a Response Header Transform Rule (set
+  static) for CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy,
+  Permissions-Policy, a remove op for X-Powered-By, and HSTS via SSL/TLS ->
+  Edge Certificates (or the API security_header setting), warning not to set
+  HSTS in both places. Gives concrete dashboard steps and/or a working API
+  call. The CSP includes frame-src/script-src entries for Stripe
+  (js.stripe.com, hooks.stripe.com) and YouTube (www.youtube.com or
+  youtube-nocookie.com), and recommends Report-Only or careful testing
+  because WordPress themes/plugins use inline scripts. fix.md written.
+context:
+  scaffold_script: place-files.sh

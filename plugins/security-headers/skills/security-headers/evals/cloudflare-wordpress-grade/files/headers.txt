@@ -1,0 +1,16 @@
+$ curl -sS -D - -o /dev/null https://sweetcrumbsbakery.co/
+HTTP/2 200
+date: Sat, 18 Oct 2026 19:44:02 GMT
+content-type: text/html; charset=UTF-8
+link: <https://sweetcrumbsbakery.co/wp-json/>; rel="https://api.w.org/"
+link: <https://sweetcrumbsbakery.co/>; rel=shortlink
+x-powered-by: PHP/8.1.29
+vary: Accept-Encoding
+cache-control: max-age=600, must-revalidate
+cf-cache-status: HIT
+age: 212
+report-to: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=abc"}],"group":"cf-nel","max_age":604800}
+nel: {"success_fraction":0,"report_to":"cf-nel","max_age":604800}
+server: cloudflare
+cf-ray: 8d4f2a1b3c5e6f70-ATL
+alt-svc: h3=":443"; ma=86400

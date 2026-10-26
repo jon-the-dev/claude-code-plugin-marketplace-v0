@@ -6,7 +6,7 @@
     "url": "https://github.com/jon-the-dev"
   },
   "metadata": {
-    "description": "JR's custom Claude Code plugins: repo tools, Runway infrastructure deployment, cross-model assistants, codebase audits, AI dev workflows, and specialist agents"
+    "description": "JR's custom Claude Code plugins: repo tools, Runway infrastructure deployment, cross-model assistants, codebase audits, AI dev workflows, specialist agents, and website security headers"
   },
   "plugins": [
     {
@@ -43,6 +43,11 @@
       "name": "devops-agents",
       "source": "./plugins/devops-agents",
       "description": "DevOps and platform agents: terraform-agent (HCP Terraform workflows via bundled Terraform MCP server), github-actions-expert (secure CI/CD workflows), owasp-compliance (OWASP ASI Top 10 agent security checks), and api-architect (layered API client code generation)"
+    },
+    {
+      "name": "security-headers",
+      "source": "./plugins/security-headers",
+      "description": "Scan a site with securityheaders.com (plus a local fallback grader), explain missing or weak HTTP security headers, and generate platform-specific fixes for AWS (CloudFront, ALB, API Gateway, Amplify, S3, Elastic Beanstalk) and Cloudflare (Transform Rules, Managed Transforms, HSTS, Workers), then re-scan to verify"
     }
   ]
 }

@@ -1,0 +1,16 @@
+$ curl -sS -D - -o /dev/null https://www.acmeroadworks.com/
+HTTP/2 200
+content-type: text/html
+content-length: 18422
+date: Mon, 20 Oct 2026 14:02:11 GMT
+last-modified: Fri, 17 Oct 2026 21:10:03 GMT
+etag: "6b2a1f0c9d8e7f6a5b4c3d2e1f0a9b8c"
+x-amz-server-side-encryption: AES256
+accept-ranges: bytes
+server: AmazonS3
+x-cache: Hit from cloudfront
+via: 1.1 3f2c1a9e8b7d6c5f4a3b2c1d0e9f8a7b.cloudfront.net (CloudFront)
+x-amz-cf-pop: IAD89-C1
+x-amz-cf-id: Qw3rTy-Ui0pAsDfGhJkLzXcVbNm1234567890abcdefghij==
+strict-transport-security: max-age=31536000
+x-frame-options: SAMEORIGIN

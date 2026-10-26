@@ -1,0 +1,14 @@
+$ curl -sS -D - -o /dev/null https://portal.helixlogistics.net/login/
+HTTP/1.1 200 OK
+Date: Tue, 21 Oct 2026 09:12:45 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 9211
+Connection: keep-alive
+Server: gunicorn/20.1.0
+Vary: Cookie
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+Referrer-Policy: same-origin
+Cross-Origin-Opener-Policy: same-origin
+Set-Cookie: csrftoken=redacted; expires=Tue, 20 Oct 2027 09:12:45 GMT; Max-Age=31449600; Path=/; SameSite=Lax; Secure
+Strict-Transport-Security: max-age=3600
